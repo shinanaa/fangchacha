@@ -18,7 +18,7 @@ class PafjItem(scrapy.Item):
     city = scrapy.Field()
     auth = scrapy.Field()
 
-class cityItem(scrapy.Item):
+class CityItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     name = scrapy.Field()
