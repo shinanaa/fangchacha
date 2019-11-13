@@ -22,17 +22,20 @@ class CityListSpider(scrapy.Spider):
 
     def parse(self, response):
         # 获取 城市列表
-        key = 'A'
+        key = 'C'
         # 如开启27行 则爬取 city页面所有的650个省份  如果使用28行 则根据22行对应的key 获取省份列表
-        # cityList = response.xpath('//div[@class="city_list"]')  # 使用xpath从response中获取24个字母的列表
-        cityList = response.xpath(
-            '//label[@class="label_letter" and contains(text(),"%s")]/following-sibling::div[@class="city_list"]' % key)  # 使用xpath从response中根据我设定的Key 获取 对应首字母的div
+        cityList = response.xpath('//div[@class="city_list"]')  # 使用xpath从response中获取24个字母的列表
+        # cityList = response.xpath('//label[@class="label_letter" and contains(text(),"%s")]/following-sibling::div[@class="city_list"]' % key)  # 使用xpath从response中根据我设定的Key 获取 对应首字母的div
         for div in cityList:
-            names = div.xpath('./a/@href').extract()  # 名字
-            for name in names:
+            # names = div.xpath('./a/@href').extract()  # 名字
+            aS = div.xpath('./a')  # 名字
+            for a in aS:
+                href = a.xpath('./@href').extract_first()  # href
+                name = a.xpath('./text()').extract_first()  # href
                 # https://xa.anjuke.com/community/p1/
-                cityKey = 'https://%s.anjuke.com/community/p1/' % name.split(".", 1)[0][8:]
+                cityKey = 'https://%s.anjuke.com/community/p1/' % href.split(".", 1)[0][8:]
                 ct = CityItem()
-                ct['name'] = cityKey
+                ct['cityKey'] = cityKey
+                ct['name'] = name
                 yield ct
 

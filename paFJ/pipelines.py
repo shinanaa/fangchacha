@@ -12,7 +12,7 @@ class PafjPipeline(object):
     def __init__(self):
         self.houseList = []
         self.cityInfo = {}
-        self.file=codecs.open(filename='fj.json',mode='w+',encoding='utf-8')
+
 
     def open_spider(self, spider):
         print('房价爬虫开始了...')
@@ -21,19 +21,20 @@ class PafjPipeline(object):
     def process_item(self, item, spider):
         print('进入房间爬虫信息处理阶段...')
         self.houseList.append(item)
-        item['auth'] = 'gq'
         return item
 
     def close_spider(self, spider):
         print('房价爬虫结束。。。。')
-        self.cityInfo[self.houseList[0]['city']] = self.houseList
-        self.file.write(str(self.cityInfo))
-        self.file.close()
+        fileName = self.houseList[0]['city']
+        file = codecs.open(filename=(fileName+'.json'), mode='w+', encoding='utf-8')
+        self.cityInfo[fileName] = self.houseList
+        file.write(str(self.cityInfo))
+        file.close()
 
 
 class CityPipeline(object):
     def __init__(self):
-        self.cityList = []
+        self.myJson = {}
         self.file = codecs.open(filename='city.json',mode='w+',encoding='utf-8')
 
     def open_spider(self, spider):
@@ -41,10 +42,10 @@ class CityPipeline(object):
         pass
 
     def process_item(self, item, spider):
-        self.cityList.append(item['name'])
+        self.myJson[item['name']] = item['cityKey']
         return item
 
     def close_spider(self, spider):
         print('城市爬虫结束。。。。')
-        self.file.write(str(self.cityList))
+        self.file.write(str(self.myJson))
         self.file.close()
