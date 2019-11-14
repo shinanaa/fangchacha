@@ -27,7 +27,8 @@ class PafjPipeline(object):
         print('房价爬虫结束。。。。')
         fileName = self.houseList[0]['city']
         file = codecs.open(filename=(fileName+'.json'), mode='w+', encoding='utf-8')
-        self.cityInfo[fileName] = self.houseList
+        self.cityInfo['name'] = fileName
+        self.cityInfo['data'] = self.houseList
         file.write(str(self.cityInfo))
         file.close()
 
