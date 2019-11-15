@@ -7,7 +7,7 @@ from paFJ.items import PafjItem  # 使用item
 class AnjuSpider(scrapy.Spider):
 
     # 输入 你要爬取的 城市名称
-    targetCity = '北京' #       唐山  廊坊 天津 沧州 保定 张家口 石家庄 衡水 邢台 邯郸  德州 聊城 滨州 东营 淄博 潍坊 烟台 威海 青岛 日照 临沂 枣庄 济宁 菏泽
+    targetCity = '齐齐哈尔' #           沧州 保定 张家口 石家庄 衡水 邢台 邯郸  德州 聊城 滨州 东营 淄博 潍坊 烟台 威海  日照 临沂 枣庄 济宁 菏泽
 
 
     name = 'anju'  # spider的名称，影响不大
